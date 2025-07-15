@@ -1,6 +1,5 @@
 const std = @import("std");
 
-// 打印数组
 pub fn printArray(comptime T: type, arr: []T) void {
     if (arr.len == 0) {
         std.debug.print("[]", .{});
