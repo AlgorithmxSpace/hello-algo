@@ -7,15 +7,11 @@ pub fn printArray(comptime T: type, arr: []T) void {
         return;
     }
     std.debug.print("[", .{});
-    for (arr) |value| {
-        std.debug.print("{any}", .{value});
+    if (arr.len > 0) {
+        for (arr, 0..) |num, j| {
+            std.debug.print("{}{s}", .{ num, if (j == arr.len - 1) "]" else ", " });
+        }
+    } else {
+        std.debug.print("]", .{});
     }
-    // for (arr) |item| {
-    //     std.debug.print("{}", .{item});
-    // }
-    std.debug.print("]", .{});
-}
-
-pub fn say() void {
-    std.debug.print("say hello \n", .{});
 }
