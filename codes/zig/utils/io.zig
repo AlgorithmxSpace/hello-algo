@@ -15,3 +15,7 @@ pub fn printArray(comptime T: type, arr: []T) void {
     // }
     std.debug.print("]", .{});
 }
+
+pub fn say() void {
+    std.debug.print("say hello \n", .{});
+}
