@@ -1,7 +1,7 @@
 const std = @import("std");
 const ListNode = @import("ListNode.zig").ListNode;
 
-// 打印数组
+// 格式化数组
 pub fn printArray(comptime T: type, arr: []const T) void {
     std.debug.print("[", .{});
     if (arr.len > 0) {
@@ -37,4 +37,34 @@ pub fn printLinkedList(comptime T: type, node: *const ListNode(T)) void {
     } else {
         std.debug.print("\n", .{});
     }
+}
+
+pub fn formatSlice(comptime T: type, slice: []const T) SliceFormatter(T) {
+    return SliceFormatter(T){ .items = slice };
+}
+
+pub fn SliceFormatter(comptime T: type) type {
+    return struct {
+        const Self = @This();
+
+        items: []const T,
+
+        pub fn format(self: Self, comptime fmt: []const u8, options: std.fmt.FormatOptions, writer: anytype) !void {
+            _ = fmt;
+            _ = options;
+
+            try writer.writeAll("[");
+
+            if (self.items.len > 0) {
+                for (self.items, 0..) |item, i| {
+                    try std.fmt.format(writer, "{}", .{item});
+                    if (i != self.items.len - 1) {
+                        try writer.writeAll(", ");
+                    }
+                }
+            }
+
+            try writer.writeAll("]");
+        }
+    };
 }
