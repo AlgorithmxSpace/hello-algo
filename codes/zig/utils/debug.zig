@@ -20,7 +20,7 @@ pub fn printList(comptime T: type, list: std.ArrayList(T)) void {
     std.debug.print("[", .{});
     if (list.items.len > 0) {
         for (list.items, 0..) |item, i| {
-            std.debug.print("{}{}", .{ item, if (i == list.items.len - 1) "]" else ", " });
+            std.debug.print("{}{s}", .{ item, if (i == list.items.len - 1) "]" else ", " });
         }
     } else {
         std.debug.print("]", .{});
