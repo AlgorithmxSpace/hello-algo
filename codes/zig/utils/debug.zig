@@ -1,8 +1,12 @@
+// File: debug.zig
+// Created Time: 2025-07-18
+// Author: CreatorMetaSky (creator_meta_sky@163.com)
+
 const std = @import("std");
 const ListNode = @import("ListNode.zig").ListNode;
 
 // 格式化数组
-pub fn printArray(comptime T: type, arr: []const T) void {
+pub fn printArray(comptime T: type, arr: []const T) void { // todo: - printArray to printSlice
     std.debug.print("[", .{});
     if (arr.len > 0) {
         std.debug.print("[", .{});
