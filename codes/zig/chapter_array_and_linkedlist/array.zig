@@ -3,11 +3,7 @@
 // Author: codingonion (coderonion@gmail.com), CreatorMetaSky (creator_meta_sky@163.com)
 
 const std = @import("std");
-// const utils = @import("utils");
-const utils = if (@import("builtin").is_test)
-    @import("../utils/utils.zig")
-else
-    @import("utils");
+const utils = @import("utils");
 
 // 随机访问元素
 pub fn randomAccess(nums: []const i32) i32 {

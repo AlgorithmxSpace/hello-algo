@@ -118,8 +118,8 @@ fn addTestStepToExeModule(b: *std.Build, test_step: *std.Build.Step, exe_mod: *s
         .filters = test_filters,
     });
 
-    const utils_mod = createUtilsModule(b, exe_unit_tests.root_module.resolved_target.?, exe_unit_tests.root_module.optimize.?);
-    exe_unit_tests.root_module.addImport("utils", utils_mod);
+    // const utils_mod = createUtilsModule(b, exe_unit_tests.root_module.resolved_target.?, exe_unit_tests.root_module.optimize.?);
+    // exe_unit_tests.root_module.addImport("utils", utils_mod);
 
     const run_exe_unit_tests = b.addRunArtifact(exe_unit_tests);
     test_step.dependOn(&run_exe_unit_tests.step);
