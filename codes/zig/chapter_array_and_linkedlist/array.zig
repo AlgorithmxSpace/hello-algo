@@ -8,9 +8,9 @@ const utils = @import("utils");
 // 随机访问元素
 pub fn randomAccess(nums: []const i32) i32 {
     // 在区间 [0, nums.len) 中随机抽取一个整数
-    const randomIndex = std.crypto.random.intRangeLessThan(usize, 0, nums.len);
+    const random_index = std.crypto.random.intRangeLessThan(usize, 0, nums.len);
     // 获取并返回随机元素
-    const randomNum = nums[randomIndex];
+    const randomNum = nums[random_index];
     return randomNum;
 }
 
@@ -120,10 +120,10 @@ pub fn run() !void {
     std.debug.print("在 nums 中查找元素 3 ，得到索引 = {}\n", .{index});
 }
 
-pub fn main() !void { // todo: - debug it
+pub fn main() !void {
     try run();
 }
 
-test "basic array" { // todo: - 精确匹配
+test "basic array" {
     try run();
 }
