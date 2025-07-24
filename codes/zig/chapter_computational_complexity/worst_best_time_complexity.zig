@@ -1,6 +1,6 @@
 // File: worst_best_time_complexity.zig
 // Created Time: 2022-12-28
-// Author: codingonion (coderonion@gmail.com)
+// Author: codingonion (coderonion@gmail.com), CreatorMetaSky (creator_meta_sky@163.com)
 
 const std = @import("std");
 const inc = @import("include");
@@ -29,12 +29,12 @@ pub fn findOne(nums: []i32) i32 {
 }
 
 // Driver Code
-pub fn main() !void {
+pub fn run() !void {
     var i: i32 = 0;
     while (i < 10) : (i += 1) {
         const n: usize = 100;
         var nums = randomNumbers(n);
-        var index = findOne(&nums);
+        const index = findOne(&nums);
         std.debug.print("\n数组 [ 1, 2, ..., n ] 被打乱后 = ", .{});
         inc.PrintUtil.printArray(i32, &nums);
         std.debug.print("数字 1 的索引为 {}\n", .{index});
@@ -43,3 +43,10 @@ pub fn main() !void {
     _ = try std.io.getStdIn().reader().readByte();
 }
 
+pub fn main() !void {
+    try run();
+}
+
+test "worst_best_time_complexity" {
+    try run();
+}

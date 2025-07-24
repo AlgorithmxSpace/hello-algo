@@ -68,7 +68,9 @@ fn buildExeModuleFromChapterDirEntry(
         std.mem.eql(u8, zig_file_name, "linked_list") or
         std.mem.eql(u8, zig_file_name, "list") or
         std.mem.eql(u8, zig_file_name, "my_list") or
-        std.mem.eql(u8, zig_file_name, "iteration");
+        std.mem.eql(u8, zig_file_name, "iteration") or
+        std.mem.eql(u8, zig_file_name, "recursion");
+
     if (!can_run) {
         return error.CanNotRunUseOldZigCodes;
     }
