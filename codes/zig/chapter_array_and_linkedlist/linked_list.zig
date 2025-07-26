@@ -99,6 +99,6 @@ pub fn main() void {
     run();
 }
 
-test "linked list" {
+test "linked_list" {
     run();
 }

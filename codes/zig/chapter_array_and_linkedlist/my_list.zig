@@ -226,6 +226,6 @@ pub fn main() !void {
     try run();
 }
 
-test "my list" {
+test "my_list" {
     try run();
 }

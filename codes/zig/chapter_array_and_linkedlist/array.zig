@@ -124,6 +124,6 @@ pub fn main() !void {
     try run();
 }
 
-test "basic array" {
+test "array" {
     try run();
 }

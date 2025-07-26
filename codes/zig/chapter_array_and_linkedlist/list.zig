@@ -71,6 +71,6 @@ pub fn main() !void {
     try run();
 }
 
-test "array list" {
+test "list" {
     try run();
 }

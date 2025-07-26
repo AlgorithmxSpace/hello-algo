@@ -3,9 +3,9 @@
 // Author: codingonion (coderonion@gmail.com), CreatorMetaSky (creator_meta_sky@163.com)
 
 //! Zig Version: 0.14.1
-//! Zig Build Command:  zig build -Doptimize=ReleaseSafe
-//! Zig Run Command:    zig build run_* -Doptimize=ReleaseSafe
-//! Zig Test Command:   zig build test
+//! Build Command:          zig build
+//! Run Command:            zig build run | zig build run_*
+//! Test Command:           zig build test | zig build test -Dtest-filter=*
 
 const std = @import("std");
 
@@ -29,6 +29,7 @@ pub fn build(b: *std.Build) void {
     const test_filters = b.option([]const []const u8, "test-filter", "Skip tests that do not match any filter") orelse &[0][]const u8{};
 
     buildChapterExeModules(b, target, optimize, &chapters, test_step, test_filters);
+    buildMainExeModule(b, target, optimize);
 }
 
 fn buildChapterExeModules(
@@ -106,6 +107,37 @@ fn buildExeModuleFromChapterDirEntry(
     return exe_mod;
 }
 
+fn buildMainExeModule(
+    b: *std.Build,
+    target: std.Build.ResolvedTarget,
+    optimize: std.builtin.OptimizeMode,
+) void {
+    const exe_mod = b.createModule(.{
+        .root_source_file = b.path("main.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+
+    const utils_mod = createUtilsModule(b, target, optimize);
+    exe_mod.addImport("utils", utils_mod);
+
+    const exe = b.addExecutable(.{
+        .name = "main",
+        .root_module = exe_mod,
+    });
+
+    b.installArtifact(exe);
+
+    const run_cmd = b.addRunArtifact(exe);
+    run_cmd.step.dependOn(b.getInstallStep());
+    if (b.args) |args| {
+        run_cmd.addArgs(args);
+    }
+
+    const run_step = b.step("run", "Run all hello algo zig");
+    run_step.dependOn(&run_cmd.step);
+}
+
 fn createUtilsModule(b: *std.Build, target: std.Build.ResolvedTarget, optimize: std.builtin.OptimizeMode) *std.Build.Module {
     const utils_mod = b.createModule(.{
         .root_source_file = b.path("utils/utils.zig"),
@@ -120,9 +152,6 @@ fn addTestStepToExeModule(b: *std.Build, test_step: *std.Build.Step, exe_mod: *s
         .root_module = exe_mod,
         .filters = test_filters,
     });
-
-    // const utils_mod = createUtilsModule(b, exe_unit_tests.root_module.resolved_target.?, exe_unit_tests.root_module.optimize.?);
-    // exe_unit_tests.root_module.addImport("utils", utils_mod);
 
     const run_exe_unit_tests = b.addRunArtifact(exe_unit_tests);
     test_step.dependOn(&run_exe_unit_tests.step);
