@@ -65,17 +65,28 @@ fn buildExeModuleFromChapterDirEntry(
     const zig_file_name = chapter_dir_entry.name[0 .. chapter_dir_entry.name.len - 4]; // abstract zig file name from xxx.zig
 
     // 这里临时只添加数组和链表章节部分，后续修改完后全部放开
-    const can_run = std.mem.eql(u8, zig_file_name, "array") or
-        std.mem.eql(u8, zig_file_name, "linked_list") or
-        std.mem.eql(u8, zig_file_name, "list") or
-        std.mem.eql(u8, zig_file_name, "my_list") or
-        std.mem.eql(u8, zig_file_name, "iteration") or
-        std.mem.eql(u8, zig_file_name, "recursion");
-
+    const new_algo_names = [_][]const u8{
+        "array",
+        "linked_list",
+        "list",
+        "my_list",
+        "iteration",
+        "recursion",
+        // "space_complexity",
+        // "time_complexity",
+        // "worst_best_time_complexity",
+    };
+    var can_run = false;
+    for (new_algo_names) |name| {
+        if (std.mem.eql(u8, zig_file_name, name)) {
+            can_run = true;
+        }
+    }
     if (!can_run) {
         return error.CanNotRunUseOldZigCodes;
     }
-    // std.debug.print("the zig file name = {s}\n", .{zig_file_name});
+
+    // std.debug.print("now run zig file name = {s}\n", .{zig_file_name});
 
     const exe_mod = b.createModule(.{
         .root_source_file = b.path(zig_file_path),

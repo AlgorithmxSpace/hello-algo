@@ -63,17 +63,19 @@ pub fn run() !void {
     var res: i32 = 0;
 
     res = forLoop(n);
-    std.debug.print("\nfor 循环的求和结果 res = {}\n", .{res});
+    std.debug.print("for 循环的求和结果 res = {}\n", .{res});
 
     res = whileLoop(n);
-    std.debug.print("\nwhile 循环的求和结果 res = {}\n", .{res});
+    std.debug.print("while 循环的求和结果 res = {}\n", .{res});
 
     res = whileLoopII(n);
-    std.debug.print("\nwhile 循环（两次更新）求和结果 res = {}\n", .{res});
+    std.debug.print("while 循环（两次更新）求和结果 res = {}\n", .{res});
 
     const allocator = std.heap.page_allocator;
     const resStr = try nestedForLoop(allocator, n);
-    std.debug.print("\n双层 for 循环的遍历结果 {s}\n", .{resStr});
+    std.debug.print("双层 for 循环的遍历结果 {s}\n", .{resStr});
+
+    std.debug.print("\n", .{});
 }
 
 pub fn main() !void {

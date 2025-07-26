@@ -60,27 +60,29 @@ fn fib(n: i32) i32 {
 }
 
 // Driver Code
-pub fn run() !void {
+pub fn run() void {
     const n: i32 = 5;
     var res: i32 = 0;
 
     res = recur(n);
-    std.debug.print("\n递归函数的求和结果 res = {}\n", .{recur(n)});
+    std.debug.print("递归函数的求和结果 res = {}\n", .{recur(n)});
 
     res = forLoopRecur(n);
-    std.debug.print("\n使用迭代模拟递归的求和结果 res = {}\n", .{forLoopRecur(n)});
+    std.debug.print("使用迭代模拟递归的求和结果 res = {}\n", .{forLoopRecur(n)});
 
     res = tailRecur(n, 0);
-    std.debug.print("\n尾递归函数的求和结果 res = {}\n", .{tailRecur(n, 0)});
+    std.debug.print("尾递归函数的求和结果 res = {}\n", .{tailRecur(n, 0)});
 
     res = fib(n);
-    std.debug.print("\n斐波那契数列的第 {} 项为 {}\n", .{ n, fib(n) });
+    std.debug.print("斐波那契数列的第 {} 项为 {}\n", .{ n, fib(n) });
+
+    std.debug.print("\n", .{});
 }
 
-pub fn main() !void {
-    try run();
+pub fn main() void {
+    run();
 }
 
 test "recursion" {
-    try run();
+    run();
 }

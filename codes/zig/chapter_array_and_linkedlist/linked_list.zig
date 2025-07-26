@@ -93,6 +93,8 @@ pub fn run() void {
         "链表中值为 2 的节点的索引 = {}\n",
         .{index},
     );
+
+    std.debug.print("\n", .{});
 }
 
 pub fn main() void {

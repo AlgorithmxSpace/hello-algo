@@ -220,6 +220,8 @@ pub fn run() !void {
             nums.getSize(),
         },
     );
+
+    std.debug.print("\n", .{});
 }
 
 pub fn main() !void {
