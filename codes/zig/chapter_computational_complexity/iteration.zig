@@ -10,7 +10,7 @@ fn forLoop(n: usize) i32 {
     var res: i32 = 0;
     // 循环求和 1, 2, ..., n-1, n
     for (1..n + 1) |i| {
-        res += @as(i32, @intCast(i));
+        res += @intCast(i);
     }
     return res;
 }
@@ -59,6 +59,10 @@ fn nestedForLoop(allocator: Allocator, n: usize) ![]const u8 {
 
 // Driver Code
 pub fn run() !void {
+    var gpa = std.heap.DebugAllocator(.{}){};
+    defer _ = gpa.deinit();
+    const allocator = gpa.allocator();
+
     const n: i32 = 5;
     var res: i32 = 0;
 
@@ -71,9 +75,9 @@ pub fn run() !void {
     res = whileLoopII(n);
     std.debug.print("while 循环（两次更新）求和结果 res = {}\n", .{res});
 
-    const allocator = std.heap.page_allocator;
     const resStr = try nestedForLoop(allocator, n);
     std.debug.print("双层 for 循环的遍历结果 {s}\n", .{resStr});
+    allocator.free(resStr);
 
     std.debug.print("\n", .{});
 }
