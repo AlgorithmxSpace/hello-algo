@@ -97,9 +97,8 @@ fn expRecur(n: i32) i32 {
 // 对数阶（循环实现）
 fn logarithmic(n: i32) i32 {
     var count: i32 = 0;
-    var n_var = n;
-    while (n_var > 1) {
-        n_var = n_var / 2;
+    var n_var: i32 = n;
+    while (n_var > 1) : (n_var = @divTrunc(n_var, 2)) {
         count += 1;
     }
     return count;
@@ -108,13 +107,13 @@ fn logarithmic(n: i32) i32 {
 // 对数阶（递归实现）
 fn logRecur(n: i32) i32 {
     if (n <= 1) return 0;
-    return logRecur(n / 2) + 1;
+    return logRecur(@divTrunc(n, 2)) + 1;
 }
 
 // 线性对数阶
 fn linearLogRecur(n: i32) i32 {
     if (n <= 1) return 1;
-    var count: i32 = linearLogRecur(n / 2) + linearLogRecur(n / 2);
+    var count: i32 = linearLogRecur(@divTrunc(n, 2)) + linearLogRecur(@divTrunc(n, 2));
     var i: i32 = 0;
     while (i < n) : (i += 1) {
         count += 1;
@@ -135,7 +134,7 @@ fn factorialRecur(n: i32) i32 {
 }
 
 // Driver Code
-pub fn run() !void {
+pub fn run() void {
     // 可以修改 n 运行，体会一下各种复杂度的操作数量变化趋势
     const n: i32 = 8;
     std.debug.print("输入数据大小 n = {}\n", .{n});
@@ -173,13 +172,13 @@ pub fn run() !void {
     count = factorialRecur(n);
     std.debug.print("阶乘阶（递归实现）的操作数量 = {}\n", .{count});
 
-    _ = try std.io.getStdIn().reader().readByte();
+    std.debug.print("\n", .{});
 }
 
 pub fn main() !void {
-    try run();
+    run();
 }
 
 test "time_complexity" {
-    try run();
+    run();
 }

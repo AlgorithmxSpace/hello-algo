@@ -3,7 +3,9 @@
 // Author: codingonion (coderonion@gmail.com), CreatorMetaSky (creator_meta_sky@163.com)
 
 const std = @import("std");
-const inc = @import("include");
+const utils = @import("utils");
+const ListNode = utils.ListNode;
+const TreeNode = utils.TreeNode;
 
 // 函数
 fn function() i32 {
@@ -17,7 +19,7 @@ fn constant(n: i32) void {
     const a: i32 = 0;
     const b: i32 = 0;
     const nums = [_]i32{0} ** 10000;
-    const node = inc.ListNode(i32){ .val = 0 };
+    const node = ListNode(i32){ .val = 0 };
     var i: i32 = 0;
     // 循环中的变量占用 O(1) 空间
     while (i < n) : (i += 1) {
@@ -91,17 +93,21 @@ fn quadraticRecur(comptime n: i32) i32 {
 }
 
 // 指数阶（建立满二叉树）
-fn buildTree(mem_allocator: std.mem.Allocator, n: i32) !?*inc.TreeNode(i32) {
+fn buildTree(allocator: std.mem.Allocator, n: i32) !?*TreeNode(i32) {
     if (n == 0) return null;
-    const root = try mem_allocator.create(inc.TreeNode(i32));
+    const root = try allocator.create(TreeNode(i32));
     root.init(0);
-    root.left = try buildTree(mem_allocator, n - 1);
-    root.right = try buildTree(mem_allocator, n - 1);
+    root.left = try buildTree(allocator, n - 1);
+    root.right = try buildTree(allocator, n - 1);
     return root;
 }
 
 // Driver Code
 pub fn run() !void {
+    var gpa = std.heap.DebugAllocator(.{}){};
+    defer _ = gpa.deinit();
+    const allocator = gpa.allocator();
+
     const n: i32 = 5;
     // 常数阶
     constant(n);
@@ -112,15 +118,10 @@ pub fn run() !void {
     try quadratic(n);
     _ = quadraticRecur(n);
     // 指数阶
-    var mem_arena = std.heap.ArenaAllocator.init(std.heap.page_allocator);
-    defer mem_arena.deinit();
-    const root = blk_root: {
-        const mem_allocator = mem_arena.allocator();
-        break :blk_root try buildTree(mem_allocator, n);
-    };
-    try inc.PrintUtil.printTree(root, null, false);
+    const root = try buildTree(allocator, n);
+    std.debug.print("{}\n", .{utils.fmt.tree(i32, root)});
 
-    _ = try std.io.getStdIn().reader().readByte();
+    std.debug.print("\n", .{});
 }
 
 pub fn main() !void {

@@ -14,15 +14,15 @@ pub fn build(b: *std.Build) void {
     const optimize = b.standardOptimizeOption(.{});
 
     const chapters = [_][]const u8{
-        "chapter_array_and_linkedlist",
         "chapter_computational_complexity",
-        "chapter_dynamic_programming",
+        "chapter_array_and_linkedlist",
+        "chapter_stack_and_queue",
         "chapter_hashing",
+        "chapter_tree",
         "chapter_heap",
         "chapter_searching",
         "chapter_sorting",
-        "chapter_stack_and_queue",
-        "chapter_tree",
+        "chapter_dynamic_programming",
     };
 
     const test_step = b.step("test", "Run unit tests");
@@ -72,9 +72,9 @@ fn buildExeModuleFromChapterDirEntry(
         "my_list",
         "iteration",
         "recursion",
-        // "space_complexity",
-        // "time_complexity",
-        // "worst_best_time_complexity",
+        "space_complexity",
+        "time_complexity",
+        "worst_best_time_complexity",
     };
     var can_run = false;
     for (new_algo_names) |name| {
