@@ -102,6 +102,14 @@ fn buildTree(allocator: std.mem.Allocator, n: i32) !?*TreeNode(i32) {
     return root;
 }
 
+// 释放树的内存
+fn freeTree(allocator: std.mem.Allocator, root: ?*const TreeNode(i32)) void {
+    if (root == null) return;
+    freeTree(allocator, root.?.left);
+    freeTree(allocator, root.?.right);
+    allocator.destroy(root.?);
+}
+
 // Driver Code
 pub fn run() !void {
     var gpa = std.heap.DebugAllocator(.{}){};
@@ -119,6 +127,7 @@ pub fn run() !void {
     _ = quadraticRecur(n);
     // 指数阶
     const root = try buildTree(allocator, n);
+    defer freeTree(allocator, root);
     std.debug.print("{}\n", .{utils.fmt.tree(i32, root)});
 
     std.debug.print("\n", .{});
