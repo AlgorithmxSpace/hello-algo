@@ -75,6 +75,7 @@ fn buildExeModuleFromChapterDirEntry(
         "space_complexity",
         "time_complexity",
         "worst_best_time_complexity",
+        // "array_queue",
     };
     var can_run = false;
     for (new_algo_names) |name| {

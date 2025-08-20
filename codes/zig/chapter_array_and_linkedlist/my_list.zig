@@ -160,9 +160,7 @@ const MyList = struct {
 
 // Driver Code
 pub fn run() !void {
-    var gpa = std.heap.DebugAllocator(.{}){};
-    defer _ = gpa.deinit();
-    const allocator = gpa.allocator();
+    const allocator = utils.allocator.globalAllocator();
 
     // 初始化列表
     var nums = MyList.init(allocator);

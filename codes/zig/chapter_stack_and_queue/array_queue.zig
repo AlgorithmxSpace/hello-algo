@@ -97,7 +97,7 @@ pub fn ArrayQueue(comptime T: type) type {
 }
 
 // Driver Code
-pub fn main() !void {
+pub fn run() !void {
     // 初始化队列
     const capacity: usize = 10;
     var queue = ArrayQueue(i32){};
