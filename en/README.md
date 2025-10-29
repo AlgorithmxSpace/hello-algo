@@ -41,6 +41,8 @@
   <a href="https://github.com/krahets/hello-algo/blob/main/zh-hant/README.md">繁體中文</a>
   ｜
   English
+  ｜
+  <a href="https://github.com/krahets/hello-algo/blob/main/ja/README.md">日本語</a>
 </p>
 
 ## The book
@@ -62,6 +64,15 @@ If you find this book helpful, please give it a Star :star: to support us, thank
 > "If I had 'Hello Algo' when I was learning data structures and algorithms, it would have been 10 times easier!"
 >
 > **—— Mu Li, Senior Principal Scientist, Amazon**
+
+## Special thanks
+
+<p align="left">
+  <a href="https://go.warp.dev/hello-algo">
+    <img src="https://github.com/warpdotdev/brand-assets/blob/main/Github/Sponsor/Warp-Github-LG-02.png" alt="Warp-Github-LG-02" width="500"></a>
+</p>
+
+[Warp is built for coding with multiple AI agents.](https://go.warp.dev/hello-algo)
 
 ## Contributing
 
